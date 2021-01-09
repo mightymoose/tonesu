@@ -1,9 +1,9 @@
-name: Build the Web Client
+name: Run the Web Client Unit Tests
 
 on: push
 
 jobs:
-  build-the-web-client:
+  run-the-web-client-unit-tests:
     runs-on: ubuntu-latest
 
     strategy:
