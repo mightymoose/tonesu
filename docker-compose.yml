@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web-client:
+    container_name: tonesu-web-client
+    build:
+      context: ./web-client
+  api:
+    container_name: tonesu-api
+    build:
+      context: ./api
+  ingress:
+    container_name: tonesu-ingress
+    build:
+      context: ./ingress
+    ports:
+      - '80:80'
+
