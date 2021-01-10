@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`displays the pending state when the promise is pending 1`] = `
+<div
+  data-testid="test-yoke"
+>
+  Pending
+</div>
+`;
+
+exports[`displays the rejected state when the has been rejected 1`] = `
+<div
+  data-testid="test-yoke"
+>
+  <h1>
+    Rejected 
+    Reject
+  </h1>
+</div>
+`;
+
+exports[`displays the resolved state when the has resolved 1`] = `
+<div
+  data-testid="test-yoke"
+>
+  <h1>
+    Resolved 
+    Then
+  </h1>
+</div>
+`;
