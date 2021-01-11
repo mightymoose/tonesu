@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ApiResult } from "../api/api";
 import { Await, Then, Catch } from "../Await";
 
@@ -15,25 +15,32 @@ const ReceivedUnexpectedResponse = () => (
   <div>The ping endpoint responded with an unexpected result.</div>
 );
 
-const PingResult = ({ response }: PingResultProps) => {
-  if (response.ok) {
-    return (
-      <Await promise={response.json()}>
-        <Then>
-          {(result) =>
-            (result as ApiResult<string>).data === "pong" ? (
-              <ReceivedExpectedResponse />
-            ) : (
-              <ReceivedUnexpectedResponse />
-            )
-          }
-        </Then>
-        <Catch>{InvalidJSON}</Catch>
-      </Await>
-    );
+const Result = ({ response }: PingResultProps) => {
+  const [result, setResult] = useState<null | Promise<ApiResult<string>>>(null);
+
+  useEffect(() => setResult(response.json()), [response]);
+
+  if (result === null) {
+    return null;
   }
 
-  return <ReceivedError />;
+  return (
+    <Await promise={result}>
+      <Then>
+        {(result) =>
+          (result as ApiResult<string>).data === "pong" ? (
+            <ReceivedExpectedResponse />
+          ) : (
+            <ReceivedUnexpectedResponse />
+          )
+        }
+      </Then>
+      <Catch>{InvalidJSON}</Catch>
+    </Await>
+  );
 };
+
+const PingResult = ({ response }: PingResultProps) =>
+  response.ok ? <Result response={response} /> : <ReceivedError />;
 
 export default PingResult;

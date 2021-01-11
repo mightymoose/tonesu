@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Await, Catch, Pending, Then } from "../Await";
 import ping from "./ping.service";
 import PingResult from "./PingResult";
 import NetworkError from "./NetworkError";
 
 const Ping = () => {
-  const [result] = useState(ping());
+  const [response, setResponse] = useState<null | Promise<Response>>(null);
+  useEffect(() => setResponse(ping()), []);
+
+  if (response === null) {
+    return null;
+  }
 
   return (
-    <Await promise={result}>
+    <Await promise={response}>
       <Pending>Loading...</Pending>
       <Then>
         {(response) => <PingResult response={response as Response} />}
