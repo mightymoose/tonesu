@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   web-client:
@@ -7,6 +7,8 @@ services:
       context: ./web-client
   api:
     container_name: tonesu-api
+    environment:
+      SECRET_KEY_BASE: 3d7da69d504f61c78b9d69f3e87eb3909b88c8b854df60fe95b85aa4f848f80ec98a6f4443cde69eec733682ff0d1b0863bca15f0e80ffc30098a01181cf69f8
     build:
       context: ./api
   ingress:
@@ -14,5 +16,4 @@ services:
     build:
       context: ./ingress
     ports:
-      - '80:80'
-
+      - "80:80"
